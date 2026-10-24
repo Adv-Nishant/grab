@@ -69,8 +69,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: '8.4'
+
+      - name: install cargo-ndk
+        run: |
+          if command -v cargo >/dev/null 2>&1 && ! command -v cargo-ndk >/dev/null 2>&1; then
+            cargo install cargo-ndk --locked
+          fi
       
-          
+           
       - name: build
         if: ${{ github.event.inputs.sign == 'false' }}
         run: |
